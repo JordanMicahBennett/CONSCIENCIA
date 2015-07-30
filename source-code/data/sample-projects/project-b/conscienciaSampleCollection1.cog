@@ -1,0 +1,5 @@
+Define stringVala as "part a".
+Define stringValb as "part b".
+Define stringSum as stringVala + stringValb.
+Define pairSample as pair ( 1, 2 ).
+Define listSample as [ 1, 2, 3, 4 ].

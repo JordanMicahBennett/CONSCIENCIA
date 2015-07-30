@@ -1,0 +1,175 @@
+/* Author : Jordan Micah Bennett */
+/* Hierarchy : exterior -> interior {statement -> empty string} */
+// user customisations
+package data.packages.CONSCIENCIA.SYNTAX;
+import java_cup.runtime.*;
+
+// Jlex directives
+    
+%%
+
+%cup
+%public
+
+%states YYSTRING
+
+%class CONSCIENCIALexer
+
+%type java_cup.runtime.Symbol
+
+%eofval{
+	return new Symbol(sym.EOF);
+%eofval}
+
+%char
+%line
+
+%{
+    public int getChar() {
+	return yychar + 1;
+    }
+
+    public int getLine() {
+	return yyline + 1;
+    }
+
+    public String getText() {
+	return yytext();
+    }
+%}
+
+nl = \n\r
+
+cc = \b\f{nl}
+
+ws = {cc}\t" "
+
+alpha = [a-zA-Z]
+
+digit = [0-9]
+
+hex = [0-9,a-fA-F]
+
+%%
+
+<YYINITIAL>	[{nl}]	{
+                        //skip newline, but reset char counter
+			yychar = 0;
+			}
+
+<YYINITIAL>	[{ws}]	{
+			// skip whitespace
+			}
+
+<YYINITIAL>	("//".*)|("/*"[^(*/)]*"*/")	{ 
+                                        // ignore comments
+                                        }
+
+<YYINITIAL>	"+"	{return new Symbol(sym.PLUS);}
+<YYINITIAL>	"-"	{return new Symbol(sym.MINUS);}
+<YYINITIAL>	"*"	{return new Symbol(sym.MUL);}
+<YYINITIAL>	"/"	{return new Symbol(sym.DIV);}
+<YYINITIAL>	"%"	{return new Symbol(sym.MOD);}
+<YYINITIAL>	","	{return new Symbol(sym.COMMA);}
+<YYINITIAL>	";"	{return new Symbol(sym.SEMI);}
+<YYINITIAL>	"."	{return new Symbol(sym.PERIOD);}
+<YYINITIAL>	"Summate amongst"	{return new Symbol(sym.SUMMATE);}
+<YYINITIAL>	"Differ amongst"	{return new Symbol(sym.DIFFER);}
+<YYINITIAL>	"Produce amongst"	{return new Symbol(sym.PRODUCE);}
+<YYINITIAL>	"Quote amongst"	{return new Symbol(sym.QUOTE);}
+<YYINITIAL>	"Modulate amongst"	{return new Symbol(sym.MODULATE);}
+<YYINITIAL>	"Expound amongst"	{return new Symbol(sym.EXPOUND);}
+<YYINITIAL>	"Find weight of someone"	{return new Symbol(sym.WEIGHT_QUERY_PREFIX);}
+<YYINITIAL>	"feet"	{return new Symbol(sym.WEIGHT_QUERY_SUFFIX0);}
+<YYINITIAL>	"inch"	{return new Symbol(sym.WEIGHT_QUERY_SUFFIX1);}
+<YYINITIAL>	"inches"	{return new Symbol(sym.WEIGHT_QUERY_SUFFIX2);}
+<YYINITIAL>	"..."	{return new Symbol(sym.ELIPSE);}
+<YYINITIAL>	"Result derived using :"	{return new Symbol(sym.OUTPUT_SOURCE_PREFIX);}
+<YYINITIAL>	"I am a"	{return new Symbol(sym.TRUE_QUERY_SELF_DECLARATION_PREFIX);}
+<YYINITIAL>	"male"	{return new Symbol(sym.TRUE_QUERY_SELF_DECLARATION_SUFFIX0);}
+<YYINITIAL>	"female"	{return new Symbol(sym.TRUE_QUERY_SELF_DECLARATION_SUFFIX1);}
+<YYINITIAL>	"I weigh"	{return new Symbol(sym.TRUE_QUERY_SELF_WEIGHT_DECLARATION_PREFIX);}
+<YYINITIAL>	"pounds"	{return new Symbol(sym.TRUE_QUERY_SELF_WEIGHT_DECLARATION_SUFFIX);}
+<YYINITIAL>	"Find computation of"	{return new Symbol(sym.DEFINITION_QUERY_PREFIX_0);}
+<YYINITIAL>	"Find simulation of"	{return new Symbol(sym.SIMULATION_QUERY_PREFIX_0);}
+<YYINITIAL>	"consciousness"	{return new Symbol(sym.PHILOSOPHICAL_DEFINITION_QUERY_TARGET_0);}
+<YYINITIAL>	"cellular automata"	{return new Symbol(sym.SIMULATION_QUERY_TARGET_0);}
+<YYINITIAL>	"operating system"	{return new Symbol(sym.SIMULATION_QUERY_TARGET_1);}
+<YYINITIAL> "&" {return new Symbol(sym.ANDBIT);}
+<YYINITIAL> "|" {return new Symbol(sym.ORBIT);}
+<YYINITIAL> "~" {return new Symbol(sym.NOTBIT);}
+
+
+<YYINITIAL> "=" {return new Symbol(sym.EQUAL);}
+<YYINITIAL> ">" {return new Symbol(sym.GREATER);}
+<YYINITIAL> "<" {return new Symbol(sym.LESSER);}
+<YYINITIAL> "<=" {return new Symbol(sym.LOE);}
+<YYINITIAL> ">=" {return new Symbol(sym.GOE);}
+<YYINITIAL> "!=" {return new Symbol(sym.NOTEQ);}
+
+
+<YYINITIAL> "and" {return new Symbol(sym.AND);}
+<YYINITIAL> "or" {return new Symbol(sym.OR);}
+<YYINITIAL> "not" {return new Symbol(sym.NOT);}
+
+
+<YYINITIAL> "@" {return new Symbol(sym.CONCAT);}
+
+
+<YYINITIAL> "pair" {return new Symbol(sym.PAIR);}
+<YYINITIAL> "car" {return new Symbol(sym.CAR);}
+<YYINITIAL> "cdr" {return new Symbol(sym.CDR);}
+<YYINITIAL> "pair?" {return new Symbol(sym.PAIRBOOL);}
+<YYINITIAL> "list" {return new Symbol(sym.LIST);}
+<YYINITIAL> "[" {return new Symbol(sym.LBRACK);}
+<YYINITIAL> "]" {return new Symbol(sym.RBRACK);}
+<YYINITIAL> "[:" {return new Symbol(sym.LVECTORBRACK);}
+<YYINITIAL> ":]" {return new Symbol(sym.RVECTORBRACK);}
+<YYINITIAL> "size" {return new Symbol(sym.SIZE);}
+
+<YYINITIAL> "eqv?" {return new Symbol(sym.EQV);}
+<YYINITIAL> "equal?" {return new Symbol(sym.OBJEQUAL);}
+<YYINITIAL> "substr" {return new Symbol(sym.SUBSTR);}
+
+<YYINITIAL> "proc" {return new Symbol(sym.PROC);}
+<YYINITIAL> "call" {return new Symbol(sym.CALL);}
+<YYINITIAL> "lazy" {return new Symbol(sym.LAZY);}
+<YYINITIAL> "let" {return new Symbol(sym.LET);}
+<YYINITIAL> "Define" {return new Symbol(sym.DEFINE);}
+<YYINITIAL> "State" {return new Symbol(sym.STATE);}
+<YYINITIAL> "as" {return new Symbol(sym.AS);}
+<YYINITIAL> "an" {return new Symbol(sym.AN);}
+<YYINITIAL> "a" {return new Symbol(sym.A);}
+<YYINITIAL> ":=" {return new Symbol(sym.ASSIGN);}
+<YYINITIAL> "if" {return new Symbol(sym.IF);}
+<YYINITIAL> "then" {return new Symbol(sym.THEN);}
+<YYINITIAL> "else" {return new Symbol(sym.ELSE);}
+<YYINITIAL> "case" {return new Symbol(sym.CASE);}
+<YYINITIAL> "Display" {return new Symbol(sym.DISPLAY);}
+<YYINITIAL> "Subsequently display" {return new Symbol(sym.SUBSEQUENTLY_DISPLAY);}
+<YYINITIAL> "Visually display" {return new Symbol(sym.VISUALLY_DISPLAY);}
+<YYINITIAL> "read" {return new Symbol(sym.READ);}
+<YYINITIAL> "readint" {return new Symbol(sym.READINT);}
+<YYINITIAL> "//" {return new Symbol(sym.COM);}
+
+
+<YYINITIAL> "/*" {return new Symbol(sym.COMBEGIN);}
+<YYINITIAL> "*/" {return new Symbol(sym.COMEND);}
+
+<YYINITIAL>	"("	{return new Symbol(sym.LPAREN);}
+<YYINITIAL>	")"	{return new Symbol(sym.RPAREN);}
+<YYINITIAL> "{" {return new Symbol(sym.LBRACE);}
+<YYINITIAL> "}" {return new Symbol(sym.RBRACE);}
+
+<YYINITIAL> "#e" {return new Symbol(sym.NIL, new Nil() );}
+<YYINITIAL> "#t" {return new Symbol(sym.TRUE, new Boolean(true) );}
+<YYINITIAL> "#f" {return new Symbol(sym.FALSE, new Boolean(false) );}
+
+<YYINITIAL>    [0-9]+ { return new Symbol(sym.INTEGER, new Integer(yytext())); }
+<YYINITIAL>    (({digit}*\.{digit}+)|({digit}+\.{digit}*)) {return new Symbol(sym.DOUBLE, new Double(yytext()));}
+
+<YYINITIAL>    ("#"\\({hex}{hex}{hex}{hex}|[^\']|\\.))|(\'[^\']\')|(\'\\.\') { return new Symbol(sym.CHAR, new Char(yytext()));}
+<YYINITIAL>    \"[^\"]*\" { return new Symbol(sym.STRING, new String( yytext().substring(1,yytext().length()-1 )  ) );}
+
+<YYINITIAL>    {alpha}+({alpha}|{digit})* { return new Symbol(sym.VARIABLE, new String(yytext()));}
+

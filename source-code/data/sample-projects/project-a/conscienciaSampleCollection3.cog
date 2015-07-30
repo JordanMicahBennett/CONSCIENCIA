@@ -1,0 +1,5 @@
+Define valuea as "part a".
+Define valueb as "part b".
+Define sum as valuea + valueb.
+Define pairSample as pair ( 1, 2 ).
+Define listSample as [ 1, 2, 3, 4 ].

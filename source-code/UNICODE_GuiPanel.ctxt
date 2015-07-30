@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.params=bsgk_frame
+comment0.target=UNICODE_GuiPanel(javax.swing.JFrame)
+comment1.params=
+comment1.target=java.lang.String\ getLastKnownDiretoryFromFile()
+comment2.params=
+comment2.target=java.lang.String\ getMethodPackageRegexUsageAnswerFromFile()
+comment3.params=
+comment3.target=java.lang.String\ getJavacLocationFromFile()
+comment4.params=
+comment4.target=java.lang.String\ getCompilerWindowSizeString()
+comment5.params=
+comment5.target=float\ getStartupOpacityLevel()
+comment6.params=graphics
+comment6.target=void\ paintComponent(java.awt.Graphics)
+comment7.params=
+comment7.target=javax.swing.JPanel\ getPanel()
+comment8.params=
+comment8.target=java.util.ArrayList\ generatedCustomComponentListMenu0()
+comment9.params=
+comment9.target=java.lang.String\ getCurrentTabContent()
+numComments=10

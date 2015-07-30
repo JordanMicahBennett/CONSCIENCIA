@@ -1,0 +1,7 @@
+Define doubleVala as 10.0..
+Define doubleValb as 20.0..
+Define doubleSum as doubleVala + doubleValb.
+Define doubleDifference as 2.0 - 4.0..
+Define doubleProduct as 8.2 * 2..
+Define doubleQuotient as 4 / 5.0..
+Define doubleModulus as 5 % 10.0..

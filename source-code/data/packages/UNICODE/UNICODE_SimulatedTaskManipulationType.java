@@ -1,0 +1,3 @@
+package data.packages.UNICODE;
+
+public enum UNICODE_SimulatedTaskManipulationType { NEW, ADMITTING, INTERRUPTING, IOEVENTWAITING, IOEVENTCOMPLETING, DISPATCHING, EXITING };

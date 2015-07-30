@@ -1,0 +1,497 @@
+/* Author : Jordan Micah Bennett */
+/* Hierarchy : exterior -> interior {statement -> empty string} */
+package data.packages.CONSCIENCIA.SYNTAX;
+
+import java_cup.runtime.*;
+import java.io.*;
+import java.util.*;
+
+
+/* Preliminaries to set up and use the scanner.  */
+parser code {:
+		CONSCIENCIALexer lexer;
+
+		public CONSCIENCIAParser(CONSCIENCIALexer l) {
+		    // As of CUP v0.11, need to pass Lexer to superclass
+		    super(l);
+		    lexer = l;
+		}
+
+		public void report_error(String message, Object info) {
+		    System.err.println(message + info);
+		}
+
+		public void syntax_error(Symbol cur_token) {
+		    report_error("Syntax error on line " + lexer.getLine() +
+				     " at char " + lexer.getChar() + ": ",
+				 "Token " + cur_token +
+				 "(" + lexer.getText() + ")");
+		    //		    System.err.print("Line " + lexer.getLine() +
+		    //				     " near char " + lexer.getChar() + ": ");
+		    //		    System.err.println ("Last token read is " +
+		    //					 lexer.getText());
+		}
+	    :};
+
+init with {:
+	  :};
+scan with {:
+		try {
+		    return lexer.next_token();
+		} catch (java.io.IOException ioe) {
+		    System.out.println ("Unrecognised token");
+		    System.out.println(ioe.getMessage());
+		    throw ioe;
+		}
+	  :};
+
+
+	  
+/* Terminals (tokens returned by the scanner). */
+
+// arithmetic operators
+
+terminal PLUS, MINUS, MUL, DIV, MOD, EXP, SEMI, PERIOD, COMMA;
+
+terminal SUMMATE, DIFFER, PRODUCE, QUOTE, MODULATE, EXPOUND;
+
+terminal WEIGHT_QUERY_PREFIX, WEIGHT_QUERY_SUFFIX0, WEIGHT_QUERY_SUFFIX1, WEIGHT_QUERY_SUFFIX2;
+
+terminal TRUE_QUERY_SELF_DECLARATION_PREFIX, TRUE_QUERY_SELF_DECLARATION_SUFFIX0, TRUE_QUERY_SELF_DECLARATION_SUFFIX1;
+terminal TRUE_QUERY_SELF_WEIGHT_DECLARATION_PREFIX, TRUE_QUERY_SELF_WEIGHT_DECLARATION_SUFFIX;
+
+terminal DEFINITION_QUERY_PREFIX_0, SIMULATION_QUERY_PREFIX_0;
+
+terminal PHILOSOPHICAL_DEFINITION_QUERY_TARGET_0;
+
+terminal SIMULATION_QUERY_TARGET_0, SIMULATION_QUERY_TARGET_1;
+
+terminal ELIPSE, OUTPUT_SOURCE_PREFIX;
+
+terminal ANDBIT, ORBIT, NOTBIT;
+
+terminal String EQUAL, GREATER, LESSER, LOE, GOE, NOTEQ, AND, OR, NOT;
+
+terminal String CONCAT, PAIR, CAR, CDR, PAIRBOOL, LIST;
+
+terminal String LBRACK, RBRACK, LVECTORBRACK, RVECTORBRACK, SIZE;
+
+terminal String EQV, OBJEQUAL, SUBSTR;
+
+terminal String PROC, CALL, LAZY, LET, DEFINE, STATE, AS, AN, A, ASSIGN;
+
+terminal String IF, THEN, ELSE, CASE, DISPLAY, SUBSEQUENTLY_DISPLAY, VISUALLY_DISPLAY, READ, READINT, COM;
+
+terminal String COMBEGIN, COMEND;
+
+terminal LPAREN, RPAREN, LBRACE, RBRACE;
+
+// terminals with values
+terminal Nil NIL;
+terminal Boolean TRUE, FALSE;
+terminal Char CHAR;
+terminal String STRING, VARIABLE;
+terminal Integer INTEGER;
+terminal Double DOUBLE;
+
+
+/* Non terminals */
+non terminal ASTProgram program;
+non terminal StmtSequence stmtList;
+non terminal Statement stmt;
+non terminal StmtDefinition definition;
+non terminal Statement assigns;
+non terminal Statement prints;
+non terminal Statement drawings;
+non terminal Exp calls;
+non terminal Exp expression;
+non terminal Exp vectors;
+non terminal Exp lists;
+non terminal ExpPair pairs;
+non terminal Exp arith;
+non terminal Exp term;
+non terminal Exp factor;
+non terminal ArrayList idList;
+non terminal ArrayList nonEmptyIds;
+non terminal ArrayList expList;
+non terminal ArrayList nonEmptyExps;
+non terminal ExpList pairList;
+non terminal ExpList pairingExps;
+non terminal empty;
+
+/* Grammar rules */
+
+////////////////////PROGRAM START/////////////////////////////////////
+program ::= stmtList:s 
+{: 
+	RESULT =new ASTProgram(s); 
+:};
+///////////////////////////////////////////////////////////////////////////////
+	
+/////////////////STATEMENTS///////////////////////////////////////
+stmtList ::= stmtList:lst stmt:s 
+{:
+	lst.add(s); 
+	RESULT =lst;
+:} 
+|   
+stmt:s  
+{: 
+	RESULT =new StmtSequence(s); 
+:};
+
+
+stmt ::= definition:d 
+{: 
+	RESULT =d; 
+:} 
+| 
+expression:e PERIOD 
+{: 
+	RESULT =new Statement(e); 
+:}
+|   
+prints:pr 
+{: 
+	RESULT =pr; 
+:} 
+|   
+assigns:as 
+{: 
+	RESULT =as; 
+:};
+
+prints ::= DISPLAY expression:e PERIOD
+{: 
+	RESULT =new ExpPrint(e, ""); 
+:}
+|   
+SUBSEQUENTLY_DISPLAY expression:e PERIOD
+{: 
+	RESULT =new ExpPrint(e, "\n"); 
+:}
+| 
+VISUALLY_DISPLAY expression:e PERIOD
+{: 
+	RESULT =new ExpVisualPrint(e, "\n"); 
+:};
+
+assigns ::= nonEmptyIds:ids ASSIGN expression:e PERIOD 
+{: 
+	RESULT =new AssignStmt(ids,e);
+:};
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+////////////////////////DEFINITIONS///////////////////////////////////
+definition ::=       
+DEFINE VARIABLE:v AS expression:e PERIOD 
+{: 
+	RESULT =new StmtDefinition(v, e); 
+:};
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////LISTING OF EXPRESSIONS////////////////////////////////////
+expList ::= nonEmptyExps:lst 
+{: 
+	RESULT =lst; 
+:}
+|              
+empty 
+{: 
+	RESULT =new ArrayList(); 
+:};
+
+nonEmptyExps ::= expression:e   
+{:
+	ArrayList tmp = new ArrayList();
+	tmp.add(e);
+	RESULT =tmp;
+:} 
+|  
+nonEmptyExps:lst COMMA expression:e 
+{:
+	lst.add(e);
+	RESULT =lst;
+:};
+
+///////////////////LISTING OF VARIABLES/////////////////////////////////////
+idList ::= nonEmptyIds:lst 
+{:
+	RESULT =lst;
+:} 
+| 
+empty 
+{:
+	RESULT =new ArrayList();
+:};
+
+nonEmptyIds ::= VARIABLE:v  
+{:
+	ArrayList tmp = new ArrayList();
+	tmp.add(v);
+	RESULT =tmp;
+:} 
+|   
+nonEmptyIds:lst COMMA VARIABLE:v 
+{:
+	lst.add(v);
+	RESULT =lst;
+:};
+
+////////////////////LISTING OF PAIRS////////////////////////////////
+pairList ::= pairingExps:lst 
+{:
+	RESULT =lst;
+:} 
+| empty 
+{:
+	RESULT =new ExpList( new ExpLit( new Nil() ) );
+:};
+
+pairingExps ::= arith:a  
+{:
+	ExpList pl = new ExpList( a );                                    
+	RESULT =pl;
+:} 
+|   
+pairingExps:lst COMMA arith:a 
+{:
+	lst.add( a );
+	RESULT =lst;
+:};
+///////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////EXPRESSIONS//////////////////////////////
+expression ::= vectors:v 
+{: 
+	RESULT =v; 
+:}
+|   
+calls:c 
+{: 
+	RESULT =c; 
+:}
+|   
+lists:l 
+{: 
+	RESULT =l; 
+:}
+|   
+pairs:p 
+{: 
+	RESULT =p; 
+:}  
+|   
+arith:a 
+{: 
+	RESULT =a; 
+:};
+                              
+//////////////////CALLS////////////////////////////////////
+calls ::= CAR LPAREN pairs:p RPAREN 
+{: 
+	RESULT =new ExpCar(p); 
+:}
+|   
+CAR LPAREN VARIABLE:v RPAREN 
+{: 
+	RESULT =new ExpCar(v); 
+:}
+|      
+CDR LPAREN pairs:p RPAREN 
+{: 
+	RESULT =new ExpCdr(p); 
+:}
+|   
+CDR LPAREN VARIABLE:v RPAREN 
+{: 
+	RESULT =new ExpCdr(v); 
+:};
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+vectors ::= LVECTORBRACK expList:el RVECTORBRACK 
+{: 
+	RESULT =new ExpVector(el); 
+:};
+
+lists ::= LBRACK pairList:pl RBRACK 
+{: 
+	RESULT =pl;
+:}
+|   
+LIST LPAREN pairList:pl RPAREN
+{: 
+	RESULT =pl; 
+:};
+
+pairs ::= PAIR LPAREN LPAREN expression:a1 COMMA expression:a2 RPAREN RPAREN 
+{: 
+	RESULT =new ExpPair(a1, a2); 
+:}
+|                 
+PAIR LPAREN expression:a1 COMMA expression:a2 RPAREN 
+{: 
+	RESULT =new ExpPair(a1, a2); 
+:};
+
+
+///////////////////////////////////////////////////////////////////////////////
+arith ::= arith:a PLUS term:t 
+{: 	
+	RESULT =new ExpAdd(a, t); 
+:}
+|   
+arith:a MINUS term:t 
+{: 	
+	RESULT =new ExpSub(a, t); 
+:}
+|  
+SUMMATE arith:a AND term:t 
+{: 	
+	RESULT =new ExpAdd(a, t); 
+:}
+|  
+WEIGHT_QUERY_PREFIX arith:a WEIGHT_QUERY_SUFFIX0
+{: 	
+	RESULT =new ExpBodyMassIndex(a); 
+:}
+|  
+WEIGHT_QUERY_PREFIX arith:a WEIGHT_QUERY_SUFFIX0 term:t WEIGHT_QUERY_SUFFIX2
+{: 	
+	RESULT =new ExpBodyMassIndex(a,t); 
+:}
+|   
+TRUE_QUERY_SELF_DECLARATION_PREFIX arith:a WEIGHT_QUERY_SUFFIX0 term:t TRUE_QUERY_SELF_DECLARATION_SUFFIX0
+{: 	
+	RESULT =new ExpBodyMassIndexTrueQuery0(a,t,new ExpLit("male")); 
+:}
+|   
+TRUE_QUERY_SELF_DECLARATION_PREFIX arith:a WEIGHT_QUERY_SUFFIX0 term:t TRUE_QUERY_SELF_DECLARATION_SUFFIX1
+{: 	
+	RESULT =new ExpBodyMassIndexTrueQuery0(a,t,new ExpLit("female")); 
+:}
+|   
+TRUE_QUERY_SELF_WEIGHT_DECLARATION_PREFIX arith:a TRUE_QUERY_SELF_WEIGHT_DECLARATION_SUFFIX
+{: 	
+	RESULT =new ExpBodyMassIndexTrueQuery1(a); 
+:} 
+|  
+DEFINITION_QUERY_PREFIX_0 PHILOSOPHICAL_DEFINITION_QUERY_TARGET_0
+{: 	
+	RESULT =new ExpConscienciaDefinitionConsciousness(); 
+:}
+|  
+SIMULATION_QUERY_PREFIX_0 SIMULATION_QUERY_TARGET_0
+{: 	
+	RESULT =new ExpConscienciaSimulationSimpleCellularAutomata(); 
+:}
+|  
+SIMULATION_QUERY_PREFIX_0 SIMULATION_QUERY_TARGET_1
+{: 	
+	RESULT =new ExpConscienciaSimulatedOperatingSystem(); 
+:}
+|        
+DIFFER arith:a AND term:t 
+{: 	
+	RESULT =new ExpSub(a, t); 
+:}
+|
+PRODUCE arith:a AND term:t 
+{: 
+	RESULT =new ExpMul(a, t); 
+:}
+|  
+QUOTE arith:a AND term:t 
+{: 	
+	RESULT =new ExpDiv(a, t); 
+:}
+| 
+MODULATE arith:a AND term:t 
+{: 
+	RESULT =new ExpMod(a, t); 
+:}
+|                                
+term:t 
+{: 
+	RESULT =t; 
+:};
+
+
+term ::= term:t MUL factor:f 
+{: 
+	RESULT =new ExpMul(t, f); 
+:}
+|  
+term:t DIV factor:f 
+{: 	
+	RESULT =new ExpDiv(t, f); 
+:}
+| 
+term:t MOD factor:f 
+{: 
+	RESULT =new ExpMod(t, f); 
+:}
+|     
+factor:f 
+{: 
+	RESULT =f; 
+:};
+
+factor ::= NIL:ilit 
+{: 
+	RESULT =new ExpLit(ilit); 
+:} 
+|     
+FALSE:ilit 
+{: 	
+	RESULT =new ExpLit(ilit); 
+:} 
+|      
+TRUE:ilit 
+{: 	
+	RESULT =new ExpLit(ilit); 
+:} 
+|    
+DOUBLE:ilit 
+{: 	
+	RESULT =new ExpLit(ilit); 
+:} 
+|   
+INTEGER:ilit 
+{: 	
+	RESULT =new ExpLit(ilit); 
+:} 
+|      
+CHAR:ilit 
+{: 	
+	RESULT =new ExpLit(ilit); 
+:}
+|    
+STRING:ilit 
+{: 	
+	RESULT =new ExpLit(ilit); 
+:}
+|   
+VARIABLE:var 
+{: 	
+	RESULT =new ExpVar(var); 
+:}
+
+|   
+LPAREN expression:e RPAREN 
+{: 
+	RESULT =e; 
+:};
+///////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////EMPTY///////////////////////////////////
+empty ::= ;
