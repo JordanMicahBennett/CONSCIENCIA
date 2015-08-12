@@ -211,7 +211,7 @@ public class CONSCIENCIA_EDITOR_ConsolePanel extends JPanel
     public String getParseResult ( String input,  Environment environment ) 
     {
         String returnValue = "";
-        ASTProgram commands = null;
+        ASTProgram _ASTProgram_ASTProgram = null;
         ConscienciaEvaluator translator = new ConscienciaEvaluator ( );
         String topOfParseStack = "";
         
@@ -221,7 +221,7 @@ public class CONSCIENCIA_EDITOR_ConsolePanel extends JPanel
             {
                 updateParser ( input );
                     
-                commands = ( ASTProgram ) parser.parse ( ).value;
+                _ASTProgram = ( ASTProgram ) parser.parse ( ).value;
             }
         } 
         catch ( Exception e ) 
@@ -229,12 +229,12 @@ public class CONSCIENCIA_EDITOR_ConsolePanel extends JPanel
             System.out.println ( "parse error: " + e.getMessage ( ) );
             e.printStackTrace ( );
         }
-        if ( commands != null )
+        if ( _ASTProgram != null )
             try
             {
                 Object result;
                
-                result = commands.visit ( translator, environment );
+                result = _ASTProgram.visit ( translator, environment );
                 
                 if ( unicodeGuiPanel != null ) //this process is only required when I want to derive results for extra content.
                 {
@@ -261,7 +261,6 @@ public class CONSCIENCIA_EDITOR_ConsolePanel extends JPanel
                 consoleField.addLine ( ".output : ", "" + e.getMessage ( ), generateAdditionalUpdateThread ( ) );
                 System.out.println ( e.getMessage ( ) );
             }
-            JPanel p = new JPanel ( );
             
         return returnValue;
     }
