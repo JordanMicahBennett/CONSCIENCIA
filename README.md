@@ -48,6 +48,7 @@ All output and computations blend into consciencia's compute window
 
 
 
+
 CONSCIENCIA COMMANDS
 ===========
 basic operations
