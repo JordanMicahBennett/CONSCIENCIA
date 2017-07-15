@@ -1,4 +1,5 @@
-![Alt text](https://github.com/JordanMicahBennett/CONSCIENCIA/blob/master/source-code/data/images/captures/0.png?raw=true"default page")
+
+![alt text](https://github.com/JordanMicahBennett/CONSCIENCIA/blob/master/source-code/data/images/captures/0.png)
 ============================================
 ============================================
 
