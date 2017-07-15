@@ -24,7 +24,7 @@ consciencia's user end was composed in a deep graphics frame work [uni-code(tm)]
 
 TRADITIONAL SYNTAX TREE
 ===========
-![Alt text](https://github.com/JordanMicahBennett/CONSCIENCIA/blob/master/source-code/data/images/captures/2.png?raw=true"default page")
+![Alt text](https://github.com/JordanMicahBennett/CONSCIENCIA/blob/master/source-code/data/images/captures/2.png)
 
 
 
@@ -45,7 +45,7 @@ All output and computations blend into consciencia's compute window
 
 
 
-![Alt text](https://github.com/JordanMicahBennett/CONSCIENCIA/blob/master/source-code/data/images/captures/1.png?raw=true"default page")
+![Alt text](https://github.com/JordanMicahBennett/CONSCIENCIA/blob/master/source-code/data/images/captures/1.png)
 
 
 
