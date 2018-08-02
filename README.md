@@ -1,7 +1,6 @@
 
 ![alt text](https://github.com/JordanMicahBennett/CONSCIENCIA/blob/master/source-code/data/images/captures/0.png)
-============================================
-============================================
+
 
 
 
@@ -52,7 +51,9 @@ All output and computations blend into consciencia's compute window
 
 CONSCIENCIA COMMANDS
 ===========
-basic operations
+
+Basic operations
+===========
 
 [+]Summate amongst exp1 and exp2. [return sum]
 
@@ -117,9 +118,10 @@ Variables
 
 unique statements	
 
-statement 0:
+         statement 0:
 	
 	~Display interactive automata (will be computable soon, interactive simulation only for now)
+	
 	
 	
 	"Find simulation of cellular automata."
@@ -127,7 +129,7 @@ statement 0:
 
 	
 	
-	
+
 
 	statement 2:
 	~Display interactive operating system simulation (will be computable soon, interactive simulation only for now)
