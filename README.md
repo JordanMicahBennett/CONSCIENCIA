@@ -70,7 +70,8 @@ basic operations
 
 [<]Relents? amongst exp1 and exp2. [return boolean] ( is exp1 lesser than exp2? )
   
-messages
+Messages
+===========
 
  [Descriptions]
  
@@ -82,7 +83,9 @@ messages
 
 
   
-variables
+Variables
+===========
+
  [DEFINITIONS EXAMPLE- REBINNDING]
  
  [SINGULAR]
@@ -117,6 +120,8 @@ unique statements
 statement 0:
 	
 	~Display interactive automata (will be computable soon, interactive simulation only for now)
+	
+	
 	"Find simulation of cellular automata."
 
 
@@ -124,12 +129,12 @@ statement 0:
 	
 	
 
-	statement 1:
+	statement 2:
 	~Display interactive operating system simulation (will be computable soon, interactive simulation only for now)
 	"Find simulation of operating system."
 	
 	
-	statement 2:
+	statement 3:
 	"Find weight of someone <value> feet <value> inch."
 
 
