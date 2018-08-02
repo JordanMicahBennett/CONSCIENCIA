@@ -53,57 +53,83 @@ All output and computations blend into consciencia's compute window
 CONSCIENCIA COMMANDS
 ===========
 basic operations
+
 [+]Summate amongst exp1 and exp2. [return sum]
+
 [-]Differ amongst exp1 and exp2. [return difference]
+
 [*]Produce amongst exp1 and exp2.  [return product]
+
 [/]Quote amongst exp1 and exp2. [return quotient]
+
 [%]Modulate amongst exp1 and exp2. [return boolean] 
+
 [%]Expound amongst exp1 and value. [return exponent] 
+
 [>]Trancends? amongst exp1 and exp2. [return boolean] ( is exp1 greater than exp2? )
+
 [<]Relents? amongst exp1 and exp2. [return boolean] ( is exp1 lesser than exp2? )
   
 messages
+
  [Descriptions]
+ 
  [show message line] Display Obama will obviously win this race.
+ 
  [show message next line] Subsequently display Obama will obviously win this race.
+ 
  [show message box] Visually display Obama will obviously win this race.
 
 
   
 variables
  [DEFINITIONS EXAMPLE- REBINNDING]
+ 
  [SINGULAR]
+ 
  [Descriptions-standard Definitions]
+ 
  [Definition-int] Define variableName as 1.
+ 
  [Definition-string] Define variableName as <value>.
+	
  [Definition-double] Define variableName as 10.
+ 
  [Definition-float] Define variableName as .0405.
+ 
+ 
  [Definition-long] Define variableName as 121211213.
+ 
  [Definition-long] Define variableName as [1,2,3].
  
+ 
  [PLURAL EXAMPLE]
+ 
  [Descriptions-standard Definitions, with values]
- [Definition-int-plural-two] Define variableName1 and variableName2 as 1 and 2 respectively
+ 
+ [Definition-int-plural-two] Define variableName1 and variableName2 as 1 and 2 respectively.
+ 
  [Definition-int-plural-multiple] Define variableName1, variableName2, and variableName3 as 1, 2, and 3 respectively
  
 
-unique statements
-	statement 0:
+unique statements	
+
+statement 0:
+	
 	~Display interactive automata (will be computable soon, interactive simulation only for now)
 	"Find simulation of cellular automata."
 
 
+	
+	
+	
+
 	statement 1:
-	~Display partial-consciousness equation.
-	"Find computation of consciousness."
-
-
-	statement 2:
 	~Display interactive operating system simulation (will be computable soon, interactive simulation only for now)
 	"Find simulation of operating system."
 	
 	
-	statement 3:
+	statement 2:
 	"Find weight of someone <value> feet <value> inch."
 
 
