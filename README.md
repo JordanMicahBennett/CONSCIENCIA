@@ -104,7 +104,7 @@ Variables
  
  [Definition-long] Define variableName as 121211213.
  
- [Definition-long] Define variableName as [1,2,3].
+ [Definition-array] Define variableName as [1,2,3].
  
  
  [PLURAL EXAMPLE]
