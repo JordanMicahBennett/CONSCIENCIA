@@ -39,7 +39,7 @@ Pure white frontent, powered by (uni-code(tm)).
 CLEAN COMPUTE WINDOW
 ===========
 Consciencia's compute window (accessed via build button toggle in core screen)
-is written in uni-code(tm)'s deep graphics framework. 
+is written in [uni-code(tm)'s deep graphics framework](https://github.com/JordanMicahBennett/UNI_CODE-DEEP-UI-ENGINE). 
 All output and computations blend into consciencia's compute window
 
 
