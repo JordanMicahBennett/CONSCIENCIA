@@ -211,7 +211,7 @@ public class CONSCIENCIA_EDITOR_ConsolePanel extends JPanel
     public String getParseResult ( String input,  Environment environment ) 
     {
         String returnValue = "";
-        ASTProgram _ASTProgram_ASTProgram = null;
+        ASTProgram _ASTProgram = null;
         ConscienciaEvaluator translator = new ConscienciaEvaluator ( );
         String topOfParseStack = "";
         
