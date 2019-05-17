@@ -113,7 +113,9 @@ public class CONSCIENCIA_EDITOR_EditorAreaDisplayManager extends JTabbedPane
     public void setCurrentTabIcon ( int index, String iconStream )
     {
         Icon icon = new ImageIcon ( iconStream );
-        setIconAt ( index, icon );
+	
+	if ( index != -1 )
+        	setIconAt ( index, icon );
     }
     
     public void setAllIcons ( )
