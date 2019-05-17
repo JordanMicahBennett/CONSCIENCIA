@@ -150,7 +150,7 @@ public class CONSCIENCIA_EDITOR_Utils
                     configurationManager.updateLastKnownDirectory ( lastKnownDirectoryController ); 
                     editorAreaDisplayManager.removeAll ( );
                     new CONSCIENCIA_EDITOR_ProjectParser ( oldProjectFileOpener.getDirectory ( ), "consciencia.dll", editorAreaDisplayManager, new Color ( 255, 255, 255 ) );
-                    new CONSCIENCIA_EDITOR_Utils ( applicationFrame ).showMessage ( "project parsing successful", "CONSCIENCIA_EDITOR message", "i" );
+                     new UNICODE_MessageBoxWindow ( true, "Project parsing successful", 0.9f, new Color ( 255, 255, 255 ), new Color ( 255, 255, 255 ), new Color ( 255, 255, 255 ), new Color ( 0, 0, 0 ), true, "data/images/all/message box/okay/","rr", 70, 70, 10, 10, 0, 0 ); 
                     editorAreaDisplayManager.setAllIcons ( );
                 }
             }
