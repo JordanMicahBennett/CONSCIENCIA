@@ -88,7 +88,7 @@ public class CONSCIENCIA_EDITOR_EditorArea extends JScrollPane
             
   
         //regex shit
-        //bushman class pattern 0 = class instance = new class ( );
+        //bushman (Jordan's old nickname at university) class pattern 0 = class instance = new class ( );
         //regex representation = term space term space punctuation space term space term space punctuation space punctuation
         Pattern p0 = Pattern.compile ( "(.*)(\\s+)(.*)(\\s+)(\\p{Punct})(\\s+)(.*)(\\s+)(.*)(\\s+)(\\p{Punct})(\\s+)(\\p{Punct})(\\p{Punct})");
                             //PATTERN1: [1]  [2]  [3] [4]      [5]       [6]  [7] [8]   [9] [10]    [11]      [12]     [13]        [14]    
@@ -101,7 +101,7 @@ public class CONSCIENCIA_EDITOR_EditorArea extends JScrollPane
                             //[13]=')'
                             //[14]=';'
                             
-        //bushman class pattern 1 = Class instance = value;                  
+        //bushman (Jordan's old nickname at university) class pattern 1 = Class instance = value;                  
         Pattern p1 = Pattern.compile ( "(.*)(\\s+)(.*)(\\s+)(\\p{Punct})(\\s+)(.*)(\\p{Punct})");    
                             //PATTERN1:  [1]  [2]  [3]  [4]      [5]     [6]   [7]     [8]  
                             //[1]=ClassName
